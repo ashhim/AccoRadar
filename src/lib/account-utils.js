@@ -374,6 +374,24 @@ export function formatDateTime(value) {
   }).format(date)
 }
 
+export function formatBoardDateTime(value, now = new Date()) {
+  const date = toDate(value)
+
+  if (!date) {
+    return 'Not set'
+  }
+
+  const sameYear = date.getFullYear() === now.getFullYear()
+
+  return new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: 'numeric',
+    ...(sameYear ? {} : { year: 'numeric' }),
+    hour: 'numeric',
+    minute: '2-digit',
+  }).format(date)
+}
+
 export function formatLastUsed(value, now = new Date()) {
   const date = toDate(value)
 
@@ -382,6 +400,18 @@ export function formatLastUsed(value, now = new Date()) {
   }
 
   return `${formatDateTime(date)} (${formatElapsed(now.getTime() - date.getTime())})`
+}
+
+export function formatBoardLastUsed(value, now = new Date()) {
+  const date = toDate(value)
+
+  if (!date) {
+    return 'Never'
+  }
+
+  return `${formatBoardDateTime(date, now)} · ${formatElapsed(
+    now.getTime() - date.getTime(),
+  )}`
 }
 
 export function toDateTimeLocalValue(value) {
@@ -490,8 +520,6 @@ export function getAccountSnapshot(account, now = new Date()) {
     resetAt,
     lastUsedAt,
     millisecondsUntilReset,
-    priorityLabel:
-      status === 'green' ? 'Use now' : status === 'yellow' ? 'Wait briefly' : 'Hold',
     statusMeta: STATUS_CONFIG[status],
   }
 }

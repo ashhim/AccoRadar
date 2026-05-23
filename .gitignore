@@ -1,22 +1,43 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+dist-ssr/
+coverage/
+.vite/
+.cache/
+
 # Logs
-logs
+logs/
 *.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
+firebase-debug.log*
+firestore-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Environment and local config
+.env
+.env.local
+.env.*.local
 *.local
+.runtimeconfig.json
+.firebase/
+.firebaserc.local
+firebase-service-account*.json
+serviceAccount*.json
+*.secret
 
-# Editor directories and files
+# Editor and OS files
 .vscode/*
 !.vscode/extensions.json
-.idea
+.idea/
 .DS_Store
+Thumbs.db
 *.suo
 *.ntvs*
 *.njsproj
